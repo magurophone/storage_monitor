@@ -213,6 +213,15 @@ class Database {
     }
     
     /**
+     * トランザクションがアクティブかどうかを確認
+     * 
+     * @return bool トランザクションがアクティブならtrue
+     */
+    public function inTransaction() {
+        return $this->pdo->inTransaction();
+    }
+    
+    /**
      * トランザクションを開始
      */
     public function beginTransaction() {

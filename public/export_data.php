@@ -12,37 +12,32 @@ try {
     // データベース接続
     $db = Database::getInstance();
     
-    // 最新の空き容量データを取得（最小限の情報のみ）
-    $query = "
-        SELECT 
-            d.device_number,
-            s.free_space
-        FROM 
-            devices d
-        LEFT JOIN 
-            storage_data s ON d.device_id = s.device_id
-        ORDER BY 
-            d.device_number ASC
-    ";
+    // デバッグ: テーブル構造を確認
+    echo "テーブル構造を確認中...\n\n";
     
-    $devices = $db->fetchAll($query);
-    
-    // テキスト形式で出力（GBに変換）
-    foreach ($devices as $device) {
-        $freeSpaceGB = round($device['free_space'] / (1024 * 1024 * 1024), 2);
-        echo "【{$device['device_number']}】 {$freeSpaceGB}\n";
+    // devicesテーブルの構造を表示
+    $devicesStructure = $db->fetchAll("DESCRIBE devices");
+    echo "Devices テーブルの構造:\n";
+    foreach ($devicesStructure as $column) {
+        echo "- " . $column['Field'] . " (" . $column['Type'] . ")\n";
     }
-    // バッファの内容を取得
-    $output = ob_get_clean();
+    echo "\n";
     
-    // ブラウザにも表示
-    echo $output;
+    // storage_dataテーブルの構造を表示
+    $storageStructure = $db->fetchAll("DESCRIBE storage_data");
+    echo "Storage_data テーブルの構造:\n";
+    foreach ($storageStructure as $column) {
+        echo "- " . $column['Field'] . " (" . $column['Type'] . ")\n";
+    }
+    echo "\n\n";
     
-    // ファイルに書き込み
-    $filename = __DIR__ . '/../data/storage_data.txt';
-    file_put_contents($filename, $output);
-    
-    echo "\n\nデータを " . $filename . " に保存しました。";
+    // 最初に少しデータを表示して確認
+    echo "テーブルデータのサンプル:\n";
+    $devicesSample = $db->fetchAll("SELECT * FROM devices LIMIT 3");
+    foreach ($devicesSample as $device) {
+        echo "Device: " . json_encode($device) . "\n";
+    }
+    echo "\n";
     
 } catch (Exception $e) {
     echo "エラー: " . $e->getMessage();

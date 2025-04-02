@@ -1,11 +1,12 @@
 <?php
 /**
- * データベース接続・操作クラス
+ * データベース接続・操作クラス (修正版)
  */
 
 class Database {
     private static $instance = null;
     private $pdo;
+    private $transactionActive = false;
     
     /**
      * コンストラクタ - PDO接続を初期化
@@ -209,48 +210,99 @@ class Database {
      * @return int 影響を受けた行数
      */
     public function exec($sql) {
-        return $this->pdo->exec($sql);
-    }
-    
-    /**
-     * トランザクションがアクティブかどうかを確認
-     * 
-     * @return bool トランザクションがアクティブならtrue
-     */
-    public function inTransaction() {
-        return $this->pdo->inTransaction();
+        try {
+            $result = $this->pdo->exec($sql);
+            
+            if (function_exists('logMessage')) {
+                logMessage("SQL直接実行: " . substr(str_replace("\n", " ", $sql), 0, 100) . 
+                           (strlen($sql) > 100 ? "..." : ""));
+            }
+            
+            return $result;
+        } catch (PDOException $e) {
+            if (function_exists('logMessage')) {
+                logMessage("SQL直接実行エラー: " . $e->getMessage() . 
+                           "\nSQL: " . str_replace("\n", " ", $sql), "ERROR");
+            }
+            throw $e;
+        }
     }
     
     /**
      * トランザクションを開始
      */
     public function beginTransaction() {
-        $this->pdo->beginTransaction();
+        if ($this->inTransaction()) {
+            if (function_exists('logMessage')) {
+                logMessage("警告: トランザクションは既に開始されています", "WARNING");
+            }
+            return false;
+        }
+        
+        $result = $this->pdo->beginTransaction();
+        $this->transactionActive = $result;
         
         if (function_exists('logMessage')) {
-            logMessage("トランザクション開始");
+            logMessage("トランザクション開始" . ($result ? "成功" : "失敗"));
         }
+        
+        return $result;
     }
     
     /**
      * トランザクションをコミット
      */
     public function commit() {
-        $this->pdo->commit();
+        if (!$this->inTransaction()) {
+            if (function_exists('logMessage')) {
+                logMessage("警告: アクティブなトランザクションがないためコミットできません", "WARNING");
+            }
+            return false;
+        }
+        
+        $result = $this->pdo->commit();
+        $this->transactionActive = false;
         
         if (function_exists('logMessage')) {
-            logMessage("トランザクションコミット");
+            logMessage("トランザクションコミット" . ($result ? "成功" : "失敗"));
         }
+        
+        return $result;
     }
     
     /**
      * トランザクションをロールバック
      */
     public function rollback() {
-        $this->pdo->rollBack();
+        if (!$this->inTransaction()) {
+            if (function_exists('logMessage')) {
+                logMessage("警告: アクティブなトランザクションがないためロールバックできません", "WARNING");
+            }
+            return false;
+        }
+        
+        $result = $this->pdo->rollBack();
+        $this->transactionActive = false;
         
         if (function_exists('logMessage')) {
-            logMessage("トランザクションロールバック", "WARNING");
+            logMessage("トランザクションロールバック" . ($result ? "成功" : "失敗"), "WARNING");
         }
+        
+        return $result;
+    }
+    
+    /**
+     * トランザクションがアクティブかどうかを確認
+     * 
+     * @return bool トランザクションがアクティブな場合はtrue
+     */
+    public function inTransaction() {
+        // PDO::inTransactionメソッドがある場合はそれを使用
+        if (method_exists($this->pdo, 'inTransaction')) {
+            return $this->pdo->inTransaction();
+        }
+        
+        // fallbackとして内部トラッキングを使用
+        return $this->transactionActive;
     }
 }

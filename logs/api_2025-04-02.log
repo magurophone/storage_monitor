@@ -1,0 +1,357 @@
+2025-04-02 00:02:50 [INFO] - APIリクエスト受信: 
+2025-04-02 00:02:50 [WARNING] - 不正なメソッド: 
+2025-04-02 16:08:43 [INFO] - APIリクエスト受信: 
+2025-04-02 16:08:43 [WARNING] - 不正なメソッド: 
+2025-04-02 16:15:14 [INFO] - APIリクエスト受信: ::1
+2025-04-02 16:15:14 [INFO] - 受信データ: {
+  "device_number": 1,
+  "free_space": 10485760
+}
+2025-04-02 16:15:14 [INFO] - データベース接続確立: localhost
+2025-04-02 16:15:14 [INFO] - トランザクション開始成功
+2025-04-02 16:15:14 [INFO] - デバイス番号 1 のデータ処理を開始
+2025-04-02 16:15:14 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 16:15:14 [INFO] - fetchOne結果: データなし
+2025-04-02 16:15:14 [INFO] - 新規デバイスを登録: デバイス番号 1
+2025-04-02 16:15:14 [INFO] - SQL実行成功: INSERT INTO devices (id, device_number, last_update) VALUES (?, ?, ?)
+2025-04-02 16:15:14 [INFO] - 挿入成功: テーブル devices, ID 0
+2025-04-02 16:15:14 [INFO] - ストレージデータを追加: デバイス番号 1, 空き容量 10485760
+2025-04-02 16:15:14 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 16:15:14 [INFO] - 挿入成功: テーブル storage_data, ID 1
+2025-04-02 16:15:14 [INFO] - トランザクションコミット成功
+2025-04-02 16:15:14 [INFO] - データ処理完了: デバイス番号 1
+2025-04-02 17:09:32 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:09:32 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:09:32 [INFO] - データベース接続確立: localhost
+2025-04-02 17:09:32 [INFO] - トランザクション開始成功
+2025-04-02 17:09:32 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:09:32 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:09:32 [INFO] - fetchOne結果: データなし
+2025-04-02 17:09:32 [INFO] - 新規デバイスを登録: デバイス番号 2
+2025-04-02 17:09:32 [INFO] - SQL実行成功: INSERT INTO devices (id, device_number, last_update) VALUES (?, ?, ?)
+2025-04-02 17:09:32 [INFO] - 挿入成功: テーブル devices, ID 0
+2025-04-02 17:09:32 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:09:32 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:09:32 [INFO] - 挿入成功: テーブル storage_data, ID 2
+2025-04-02 17:09:32 [INFO] - トランザクションコミット成功
+2025-04-02 17:09:32 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:10:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:10:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:10:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:10:33 [INFO] - トランザクション開始成功
+2025-04-02 17:10:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:10:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:10:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:10:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:10:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:10:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:10:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:10:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:10:33 [INFO] - 挿入成功: テーブル storage_data, ID 3
+2025-04-02 17:10:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:10:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:11:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:11:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:11:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:11:33 [INFO] - トランザクション開始成功
+2025-04-02 17:11:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:11:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:11:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:11:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:11:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:11:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:11:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:11:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:11:33 [INFO] - 挿入成功: テーブル storage_data, ID 4
+2025-04-02 17:11:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:11:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:12:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:12:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:12:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:12:33 [INFO] - トランザクション開始成功
+2025-04-02 17:12:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:12:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:12:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:12:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:12:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:12:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:12:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:12:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:12:33 [INFO] - 挿入成功: テーブル storage_data, ID 5
+2025-04-02 17:12:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:12:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:13:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:13:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:13:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:13:33 [INFO] - トランザクション開始成功
+2025-04-02 17:13:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:13:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:13:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:13:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:13:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:13:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:13:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:13:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:13:33 [INFO] - 挿入成功: テーブル storage_data, ID 6
+2025-04-02 17:13:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:13:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:14:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:14:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:14:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:14:33 [INFO] - トランザクション開始成功
+2025-04-02 17:14:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:14:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:14:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:14:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:14:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:14:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:14:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:14:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:14:33 [INFO] - 挿入成功: テーブル storage_data, ID 7
+2025-04-02 17:14:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:14:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:15:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:15:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:15:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:15:33 [INFO] - トランザクション開始成功
+2025-04-02 17:15:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:15:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:15:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:15:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:15:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:15:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:15:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:15:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:15:33 [INFO] - 挿入成功: テーブル storage_data, ID 8
+2025-04-02 17:15:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:15:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:16:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:16:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:16:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:16:33 [INFO] - トランザクション開始成功
+2025-04-02 17:16:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:16:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:16:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:16:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:16:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:16:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:16:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:16:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:16:33 [INFO] - 挿入成功: テーブル storage_data, ID 9
+2025-04-02 17:16:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:16:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:17:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:17:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:17:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:17:33 [INFO] - トランザクション開始成功
+2025-04-02 17:17:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:17:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:17:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:17:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:17:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:17:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:17:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:17:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:17:33 [INFO] - 挿入成功: テーブル storage_data, ID 10
+2025-04-02 17:17:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:17:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:18:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:18:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:18:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:18:33 [INFO] - トランザクション開始成功
+2025-04-02 17:18:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:18:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:18:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:18:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:18:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:18:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:18:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:18:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:18:33 [INFO] - 挿入成功: テーブル storage_data, ID 11
+2025-04-02 17:18:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:18:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:19:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:19:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:19:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:19:33 [INFO] - トランザクション開始成功
+2025-04-02 17:19:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:19:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:19:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:19:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:19:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:19:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:19:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:19:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:19:33 [INFO] - 挿入成功: テーブル storage_data, ID 12
+2025-04-02 17:19:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:19:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:20:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:20:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:20:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:20:33 [INFO] - トランザクション開始成功
+2025-04-02 17:20:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:20:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:20:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:20:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:20:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:20:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:20:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:20:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:20:33 [INFO] - 挿入成功: テーブル storage_data, ID 13
+2025-04-02 17:20:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:20:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:21:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:21:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:21:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:21:33 [INFO] - トランザクション開始成功
+2025-04-02 17:21:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:21:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:21:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:21:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:21:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:21:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:21:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:21:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:21:33 [INFO] - 挿入成功: テーブル storage_data, ID 14
+2025-04-02 17:21:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:21:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:22:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:22:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:22:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:22:33 [INFO] - トランザクション開始成功
+2025-04-02 17:22:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:22:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:22:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:22:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:22:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:22:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:22:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:22:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:22:33 [INFO] - 挿入成功: テーブル storage_data, ID 15
+2025-04-02 17:22:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:22:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:23:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:23:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:23:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:23:33 [INFO] - トランザクション開始成功
+2025-04-02 17:23:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:23:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:23:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:23:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:23:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:23:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:23:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:23:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:23:33 [INFO] - 挿入成功: テーブル storage_data, ID 16
+2025-04-02 17:23:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:23:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:24:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:24:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:24:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:24:33 [INFO] - トランザクション開始成功
+2025-04-02 17:24:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:24:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:24:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:24:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:24:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:24:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:24:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:24:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:24:33 [INFO] - 挿入成功: テーブル storage_data, ID 17
+2025-04-02 17:24:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:24:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:25:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:25:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:25:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:25:33 [INFO] - トランザクション開始成功
+2025-04-02 17:25:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:25:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:25:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:25:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:25:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:25:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:25:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:25:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:25:33 [INFO] - 挿入成功: テーブル storage_data, ID 18
+2025-04-02 17:25:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:25:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:26:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:26:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:26:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:26:33 [INFO] - トランザクション開始成功
+2025-04-02 17:26:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:26:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:26:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:26:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:26:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:26:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:26:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:26:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:26:33 [INFO] - 挿入成功: テーブル storage_data, ID 19
+2025-04-02 17:26:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:26:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:27:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:27:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:27:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:27:33 [INFO] - トランザクション開始成功
+2025-04-02 17:27:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:27:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:27:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:27:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:27:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:27:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:27:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:27:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:27:33 [INFO] - 挿入成功: テーブル storage_data, ID 20
+2025-04-02 17:27:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:27:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:27:42 [INFO] - APIリクエスト受信: 
+2025-04-02 17:27:42 [WARNING] - 不正なメソッド: 
+2025-04-02 17:28:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:28:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:28:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:28:33 [INFO] - トランザクション開始成功
+2025-04-02 17:28:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:28:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:28:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:28:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:28:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:28:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:28:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:28:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:28:33 [INFO] - 挿入成功: テーブル storage_data, ID 21
+2025-04-02 17:28:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:28:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 17:29:33 [INFO] - APIリクエスト受信: 127.0.0.1
+2025-04-02 17:29:33 [INFO] - 受信データ: {"device_number":2,"free_space":2147483648}
+2025-04-02 17:29:33 [INFO] - データベース接続確立: localhost
+2025-04-02 17:29:33 [INFO] - トランザクション開始成功
+2025-04-02 17:29:33 [INFO] - デバイス番号 2 のデータ処理を開始
+2025-04-02 17:29:33 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 17:29:33 [INFO] - fetchOne結果: データあり
+2025-04-02 17:29:33 [INFO] - 既存デバイスを更新: デバイス番号 2
+2025-04-02 17:29:33 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 17:29:33 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 17:29:33 [INFO] - ストレージデータを追加: デバイス番号 2, 空き容量 2147483648
+2025-04-02 17:29:33 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 17:29:33 [INFO] - 挿入成功: テーブル storage_data, ID 22
+2025-04-02 17:29:33 [INFO] - トランザクションコミット成功
+2025-04-02 17:29:33 [INFO] - データ処理完了: デバイス番号 2
+2025-04-02 21:12:58 [INFO] - APIリクエスト受信: ::1
+2025-04-02 21:12:58 [INFO] - 受信データ: {
+  "device_number": 1,
+  "free_space": 10485760
+}
+2025-04-02 21:12:58 [INFO] - データベース接続確立: localhost
+2025-04-02 21:12:58 [INFO] - トランザクション開始成功
+2025-04-02 21:12:58 [INFO] - デバイス番号 1 のデータ処理を開始
+2025-04-02 21:12:58 [INFO] - SQL実行成功: SELECT id FROM devices WHERE device_number = ?
+2025-04-02 21:12:58 [INFO] - fetchOne結果: データあり
+2025-04-02 21:12:58 [INFO] - 既存デバイスを更新: デバイス番号 1
+2025-04-02 21:12:58 [INFO] - SQL実行成功: UPDATE devices SET last_update = ? WHERE id = ?
+2025-04-02 21:12:58 [INFO] - 更新成功: テーブル devices, 1行更新
+2025-04-02 21:12:58 [INFO] - ストレージデータを追加: デバイス番号 1, 空き容量 10485760
+2025-04-02 21:12:58 [INFO] - SQL実行成功: INSERT INTO storage_data (device_id, free_space, created_at) VALUES (?, ?, ?)
+2025-04-02 21:12:58 [INFO] - 挿入成功: テーブル storage_data, ID 23
+2025-04-02 21:12:58 [INFO] - トランザクションコミット成功
+2025-04-02 21:12:58 [INFO] - データ処理完了: デバイス番号 1

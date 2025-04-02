@@ -10,7 +10,7 @@ date_default_timezone_set('Asia/Tokyo');
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/../logs/php-errors.log');
 
-// ログにメッセージを記録
+// ログにメッセージを記録（上書き方式）
 function logMessage($message, $level = 'INFO') {
     // LOG_DIR定数が使用できない場合は直接ディレクトリを指定
     $logDir = defined('LOG_DIR') ? LOG_DIR : __DIR__ . '/../logs';
@@ -20,10 +20,12 @@ function logMessage($message, $level = 'INFO') {
         mkdir($logDir, 0755, true);
     }
     
-    $logFile = $logDir . '/report_' . date('Y-m-d') . '.log';
+    // 日付なしの固定ファイル名
+    $logFile = $logDir . '/report.log';
     $formattedMessage = date('Y-m-d H:i:s') . " [{$level}] - " . $message . PHP_EOL;
     
-    file_put_contents($logFile, $formattedMessage, FILE_APPEND);
+    // ファイルに書き込む（FILE_APPENDなし = 上書き）
+    file_put_contents($logFile, $formattedMessage);
     
     // エラーレベルの場合はPHPのエラーログにも記録
     if ($level === 'ERROR') {

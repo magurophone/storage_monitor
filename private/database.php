@@ -1,6 +1,7 @@
 <?php
 /**
- * データベース接続・操作クラス (修正版)
+ * 最適化されたデータベース接続・操作クラス
+ * - ログ出力を最小限（エラーと警告のみ）に抑える
  */
 
 class Database {
@@ -20,10 +21,6 @@ class Database {
                 PDO::ATTR_EMULATE_PREPARES => false,
             ];
             $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
-            
-            if (function_exists('logMessage')) {
-                logMessage("データベース接続確立: " . DB_HOST);
-            }
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
                 logMessage("データベース接続失敗: " . $e->getMessage(), "ERROR");
@@ -55,12 +52,6 @@ class Database {
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
-            
-            if (function_exists('logMessage')) {
-                logMessage("SQL実行成功: " . substr(str_replace("\n", " ", $sql), 0, 100) . 
-                           (strlen($sql) > 100 ? "..." : ""));
-            }
-            
             return $stmt;
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
@@ -82,13 +73,7 @@ class Database {
      */
     public function fetchOne($sql, $params = []) {
         $stmt = $this->query($sql, $params);
-        $result = $stmt->fetch();
-        
-        if (function_exists('logMessage')) {
-            logMessage("fetchOne結果: " . ($result ? "データあり" : "データなし"));
-        }
-        
-        return $result;
+        return $stmt->fetch();
     }
     
     /**
@@ -100,13 +85,7 @@ class Database {
      */
     public function fetchAll($sql, $params = []) {
         $stmt = $this->query($sql, $params);
-        $results = $stmt->fetchAll();
-        
-        if (function_exists('logMessage')) {
-            logMessage("fetchAll結果: " . count($results) . "件のデータを取得");
-        }
-        
-        return $results;
+        return $stmt->fetchAll();
     }
     
     /**
@@ -123,13 +102,7 @@ class Database {
             
             $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders})";
             $this->query($sql, array_values($data));
-            $lastId = $this->pdo->lastInsertId();
-            
-            if (function_exists('logMessage')) {
-                logMessage("挿入成功: テーブル {$table}, ID {$lastId}");
-            }
-            
-            return $lastId;
+            return $this->pdo->lastInsertId();
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
                 logMessage("挿入エラー: テーブル {$table}, " . $e->getMessage() . 
@@ -158,13 +131,7 @@ class Database {
             
             $sql = "UPDATE {$table} SET {$set} WHERE {$where}";
             $stmt = $this->query($sql, array_merge(array_values($data), $params));
-            $rowCount = $stmt->rowCount();
-            
-            if (function_exists('logMessage')) {
-                logMessage("更新成功: テーブル {$table}, {$rowCount}行更新");
-            }
-            
-            return $rowCount;
+            return $stmt->rowCount();
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
                 logMessage("更新エラー: テーブル {$table}, " . $e->getMessage() . 
@@ -187,13 +154,7 @@ class Database {
         try {
             $sql = "DELETE FROM {$table} WHERE {$where}";
             $stmt = $this->query($sql, $params);
-            $rowCount = $stmt->rowCount();
-            
-            if (function_exists('logMessage')) {
-                logMessage("削除成功: テーブル {$table}, {$rowCount}行削除");
-            }
-            
-            return $rowCount;
+            return $stmt->rowCount();
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
                 logMessage("削除エラー: テーブル {$table}, " . $e->getMessage() . 
@@ -211,14 +172,7 @@ class Database {
      */
     public function exec($sql) {
         try {
-            $result = $this->pdo->exec($sql);
-            
-            if (function_exists('logMessage')) {
-                logMessage("SQL直接実行: " . substr(str_replace("\n", " ", $sql), 0, 100) . 
-                           (strlen($sql) > 100 ? "..." : ""));
-            }
-            
-            return $result;
+            return $this->pdo->exec($sql);
         } catch (PDOException $e) {
             if (function_exists('logMessage')) {
                 logMessage("SQL直接実行エラー: " . $e->getMessage() . 
@@ -241,11 +195,6 @@ class Database {
         
         $result = $this->pdo->beginTransaction();
         $this->transactionActive = $result;
-        
-        if (function_exists('logMessage')) {
-            logMessage("トランザクション開始" . ($result ? "成功" : "失敗"));
-        }
-        
         return $result;
     }
     
@@ -262,11 +211,6 @@ class Database {
         
         $result = $this->pdo->commit();
         $this->transactionActive = false;
-        
-        if (function_exists('logMessage')) {
-            logMessage("トランザクションコミット" . ($result ? "成功" : "失敗"));
-        }
-        
         return $result;
     }
     
@@ -285,7 +229,7 @@ class Database {
         $this->transactionActive = false;
         
         if (function_exists('logMessage')) {
-            logMessage("トランザクションロールバック" . ($result ? "成功" : "失敗"), "WARNING");
+            logMessage("トランザクションをロールバックしました", "WARNING");
         }
         
         return $result;

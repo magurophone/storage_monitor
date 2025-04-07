@@ -1,6 +1,6 @@
 <?php
 /**
- * 空き容量データをシンプルなテキスト形式で出力
+ * シンプルなテキスト形式でデータをエクスポート
  */
 
 require_once __DIR__ . '/../private/config.php';
@@ -12,21 +12,26 @@ try {
     // データベース接続
     $db = Database::getInstance();
     
-    // デバイスとそれに関連する最新の容量データを表示
-    $devices = $db->fetchAll("
-        SELECT d.id, d.device_number, d.last_update, s.free_space
-        FROM devices d
-        LEFT JOIN (
-            SELECT device_id, free_space, created_at,
-                   ROW_NUMBER() OVER (PARTITION BY device_id ORDER BY created_at DESC) as rn
-            FROM storage_data
-        ) s ON s.device_id = d.id AND s.rn = 1
-        ORDER BY d.device_number
+    // デバイスとそれに関連する最新の容量データを取得
+    $data = $db->fetchAll("
+        SELECT sd.device_number, sd.free_space, sd.created_at
+        FROM sm_storage_data sd
+        INNER JOIN (
+            SELECT device_number, MAX(created_at) as latest_date
+            FROM sm_storage_data
+            GROUP BY device_number
+        ) latest ON sd.device_number = latest.device_number AND sd.created_at = latest.latest_date
+        ORDER BY sd.device_number
     ");
     
-    foreach ($devices as $device) {
-        $freeSpaceGB = isset($device['free_space']) ? round($device['free_space'] / (1024 * 1024 * 1024), 2) : 'N/A';
-        echo "Device #" . $device['device_number'] . " - 最終更新: " . $device['last_update'] . " - 空き容量: " . $freeSpaceGB . " GB\n";
+    // データを出力
+    foreach ($data as $row) {
+        $deviceNumber = $row['device_number'];
+        $freeSpace = $row['free_space'];
+        $freeSpaceGB = round($freeSpace / (1024 * 1024 * 1024), 2);
+        $date = $row['created_at'];
+        
+        echo "端末番号: {$deviceNumber} - 空き容量: {$freeSpaceGB} GB - 日時: {$date}\n";
     }
     
 } catch (Exception $e) {

@@ -1,41 +1,40 @@
 <?php
 /**
- * データ受信APIエンドポイント - 修正版
+ * 最適化されたデータ受信APIエンドポイント
+ * - ログ出力を最小限に抑える
+ * - デバイスIDではなくデバイス番号を直接使用
  */
 
 require_once __DIR__ . '/../private/config.php';
 require_once __DIR__ . '/../private/database.php';
 require_once __DIR__ . '/../private/utils/utils.php';
 
-// ログ出力機能の追加
+// 簡略化されたログ出力機能
 if (!function_exists('logMessage')) {
     function logMessage($message, $level = 'INFO') {
-        $logDir = defined('LOG_DIR') ? LOG_DIR : __DIR__ . '/../logs';
-        
-        if (!file_exists($logDir)) {
-            mkdir($logDir, 0755, true);
+        // エラーのみをログに記録
+        if ($level === 'ERROR' || $level === 'WARNING') {
+            $logDir = defined('LOG_DIR') ? LOG_DIR : __DIR__ . '/../logs';
+            
+            if (!file_exists($logDir)) {
+                mkdir($logDir, 0755, true);
+            }
+            
+            $logFile = $logDir . '/api_' . date('Y-m-d') . '.log';
+            $formattedMessage = date('Y-m-d H:i:s') . " [{$level}] - " . $message . PHP_EOL;
+            
+            file_put_contents($logFile, $formattedMessage, FILE_APPEND);
         }
-        
-        $logFile = $logDir . '/api_' . date('Y-m-d') . '.log';
-        $formattedMessage = date('Y-m-d H:i:s') . " [{$level}] - " . $message . PHP_EOL;
-        
-        file_put_contents($logFile, $formattedMessage, FILE_APPEND);
     }
 }
 
-// リクエストの開始をログに記録
-logMessage("APIリクエスト受信: " . $_SERVER['REMOTE_ADDR']);
-
 // POSTリクエストのみ許可
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    logMessage("不正なメソッド: " . $_SERVER['REQUEST_METHOD'], "WARNING");
     sendJsonResponse('error', 'Method not allowed', ['allowed' => 'POST']);
 }
 
 // JSONデータを取得
 $jsonData = file_get_contents('php://input');
-logMessage("受信データ: " . $jsonData);
-
 $data = json_decode($jsonData, true);
 
 // JSONデコードエラーチェック
@@ -60,53 +59,43 @@ try {
     // デバイス番号を取得
     $deviceNumber = intval($data['device_number']);
     
-    // デバイスIDを生成（内部管理用）
-    $deviceId = 'device_' . $deviceNumber;
-    
     // 現在の日時
     $timestamp = date('Y-m-d H:i:s');
     
     // トランザクション開始
     $db->beginTransaction();
-    logMessage("デバイス番号 {$deviceNumber} のデータ処理を開始");
     
     // デバイスが存在するか確認
     $device = $db->fetchOne(
-        "SELECT id FROM devices WHERE device_number = ?",
+        "SELECT device_number FROM sm_devices WHERE device_number = ?",
         [$deviceNumber]
     );
     
     if ($device) {
         // 既存デバイスの更新
-        logMessage("既存デバイスを更新: デバイス番号 {$deviceNumber}");
         $db->update(
-            'devices',
+            'sm_devices',
             ['last_update' => $timestamp],
-            'id = ?',
-            [$device['id']]
+            'device_number = ?',
+            [$deviceNumber]
         );
-        $deviceId = $device['id'];
     } else {
         // 新規デバイスの登録
-        logMessage("新規デバイスを登録: デバイス番号 {$deviceNumber}");
-        $db->insert('devices', [
-            'id' => $deviceId,
+        $db->insert('sm_devices', [
             'device_number' => $deviceNumber,
             'last_update' => $timestamp
         ]);
     }
     
     // ストレージデータの追加（履歴として保存するため、常に新規挿入）
-    logMessage("ストレージデータを追加: デバイス番号 {$deviceNumber}, 空き容量 {$data['free_space']}");
-    $db->insert('storage_data', [
-        'device_id' => $deviceId,
+    $db->insert('sm_storage_data', [
+        'device_number' => $deviceNumber,
         'free_space' => intval($data['free_space']),
         'created_at' => $timestamp
     ]);
     
     // トランザクション確定
     $db->commit();
-    logMessage("データ処理完了: デバイス番号 {$deviceNumber}");
     
     // 成功レスポンスを返す
     sendJsonResponse('success', 'Data received and saved', [

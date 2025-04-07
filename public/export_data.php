@@ -12,32 +12,22 @@ try {
     // データベース接続
     $db = Database::getInstance();
     
-    // デバッグ: テーブル構造を確認
-    echo "テーブル構造を確認中...\n\n";
+    // デバイスとそれに関連する最新の容量データを表示
+    $devices = $db->fetchAll("
+        SELECT d.id, d.device_number, d.last_update, s.free_space
+        FROM devices d
+        LEFT JOIN (
+            SELECT device_id, free_space, created_at,
+                   ROW_NUMBER() OVER (PARTITION BY device_id ORDER BY created_at DESC) as rn
+            FROM storage_data
+        ) s ON s.device_id = d.id AND s.rn = 1
+        ORDER BY d.device_number
+    ");
     
-    // devicesテーブルの構造を表示
-    $devicesStructure = $db->fetchAll("DESCRIBE devices");
-    echo "Devices テーブルの構造:\n";
-    foreach ($devicesStructure as $column) {
-        echo "- " . $column['Field'] . " (" . $column['Type'] . ")\n";
+    foreach ($devices as $device) {
+        $freeSpaceGB = isset($device['free_space']) ? round($device['free_space'] / (1024 * 1024 * 1024), 2) : 'N/A';
+        echo "Device #" . $device['device_number'] . " - 最終更新: " . $device['last_update'] . " - 空き容量: " . $freeSpaceGB . " GB\n";
     }
-    echo "\n";
-    
-    // storage_dataテーブルの構造を表示
-    $storageStructure = $db->fetchAll("DESCRIBE storage_data");
-    echo "Storage_data テーブルの構造:\n";
-    foreach ($storageStructure as $column) {
-        echo "- " . $column['Field'] . " (" . $column['Type'] . ")\n";
-    }
-    echo "\n\n";
-    
-    // 最初に少しデータを表示して確認
-    echo "テーブルデータのサンプル:\n";
-    $devicesSample = $db->fetchAll("SELECT * FROM devices LIMIT 3");
-    foreach ($devicesSample as $device) {
-        echo "Device: " . json_encode($device) . "\n";
-    }
-    echo "\n";
     
 } catch (Exception $e) {
     echo "エラー: " . $e->getMessage();

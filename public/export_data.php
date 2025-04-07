@@ -1,6 +1,8 @@
 <?php
 /**
- * シンプルなテキスト形式でデータをエクスポート
+ * エクセル用のシンプルなテキスト形式でデータをエクスポート
+ * 形式: 端末番号,空き容量(GB),日時
+ * エクセルのC7～C26、H7～H26に対応（端末番号01～40）
  */
 
 require_once __DIR__ . '/../private/config.php';
@@ -24,14 +26,38 @@ try {
         ORDER BY sd.device_number
     ");
     
-    // データを出力
+    // データを整理（端末番号をキーとする配列に変換）
+    $deviceData = [];
     foreach ($data as $row) {
         $deviceNumber = $row['device_number'];
         $freeSpace = $row['free_space'];
         $freeSpaceGB = round($freeSpace / (1024 * 1024 * 1024), 2);
         $date = $row['created_at'];
         
-        echo "端末番号: {$deviceNumber} - 空き容量: {$freeSpaceGB} GB - 日時: {$date}\n";
+        $deviceData[$deviceNumber] = [
+            'free_space' => $freeSpaceGB,
+            'date' => $date
+        ];
+    }
+    
+    // 1行目: バージョン情報とタイムスタンプ
+    echo "ストレージモニター データエクスポート - " . date('Y-m-d H:i:s') . "\n";
+    
+    // 2行目: 区切り線
+    echo "----------------------------------------\n";
+    
+    // 3行目: ヘッダー
+    echo "端末番号,空き容量(GB),更新日時\n";
+    
+    // データ行: 端末番号1～40までループ（存在しない端末はハイフン表示）
+    for ($i = 1; $i <= 40; $i++) {
+        $formattedDeviceNumber = sprintf('%02d', $i); // 01, 02, ...の形式
+        
+        if (isset($deviceData[$i])) {
+            echo "{$formattedDeviceNumber},{$deviceData[$i]['free_space']},{$deviceData[$i]['date']}\n";
+        } else {
+            echo "{$formattedDeviceNumber},-,-\n";
+        }
     }
     
 } catch (Exception $e) {

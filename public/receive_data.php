@@ -3,6 +3,7 @@
  * 最適化されたデータ受信APIエンドポイント
  * - ログ出力を最小限に抑える
  * - デバイスIDではなくデバイス番号を直接使用
+ * - 最新データのみを保持（履歴を蓄積しない）
  */
 
 require_once __DIR__ . '/../private/config.php';
@@ -87,12 +88,31 @@ try {
         ]);
     }
     
-    // ストレージデータの追加（履歴として保存するため、常に新規挿入）
-    $db->insert('sm_storage_data', [
-        'device_number' => $deviceNumber,
-        'free_space' => intval($data['free_space']),
-        'created_at' => $timestamp
-    ]);
+    // ストレージデータが既に存在するか確認
+    $existingData = $db->fetchOne(
+        "SELECT id FROM sm_storage_data WHERE device_number = ?",
+        [$deviceNumber]
+    );
+    
+    if ($existingData) {
+        // 既存データの更新（最新データのみ保持）
+        $db->update(
+            'sm_storage_data',
+            [
+                'free_space' => intval($data['free_space']),
+                'created_at' => $timestamp
+            ],
+            'device_number = ?',
+            [$deviceNumber]
+        );
+    } else {
+        // 新規データの挿入
+        $db->insert('sm_storage_data', [
+            'device_number' => $deviceNumber,
+            'free_space' => intval($data['free_space']),
+            'created_at' => $timestamp
+        ]);
+    }
     
     // トランザクション確定
     $db->commit();
